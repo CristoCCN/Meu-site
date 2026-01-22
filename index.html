@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,27 +40,37 @@
     }
   </style>
 </head>
-<body><header>
+<body>
+
+<header>
   <h1>Bem-vindo ao Meu Site Interativo</h1>
-</header><section id="entrada">
+</header>
+
+<section id="entrada">
   <h2>Verificação de Idade</h2>
   <p>Por favor, digite sua idade:</p>
   <input type="number" id="idade" placeholder="Idade" />
   <button onclick="verificarIdade()">Enviar</button>
-</section><section id="nomeSec" style="display:none;">
+</section>
+
+<section id="nomeSec" style="display:none;">
   <h2>Verificação de Nome</h2>
   <p>Digite seu nome:</p>
   <input type="text" id="nome" placeholder="Nome" />
   <button onclick="verificarNome()">Enviar</button>
-</section><section id="celebracao" style="display:none;">
+</section>
+
+<section id="celebracao" style="display:none;">
   <h2 id="mensagem"></h2>
   <canvas id="efeito"></canvas>
   <div id="respostaSec" style="display:none;">
-    <p>De 0 a?</p>
+    <p>De 0 a ?</p>
     <input type="text" id="resposta" placeholder="Digite o número" />
     <button onclick="enviarResposta()">Enviar</button>
   </div>
-</section><script>
+</section>
+
+<script>
 function verificarIdade() {
   const idade = parseInt(document.getElementById('idade').value);
   if(idade >= 18) {
@@ -119,9 +130,9 @@ function enviarResposta() {
   const resposta = document.getElementById('resposta').value.trim();
   if(resposta === '1000') {
     choverCoracoes();
-    alert('Resposta correta! Te amo ❤️');
+    alert('Te amo ❤️');
   } else {
-    alert('Resposta incorreta. A resposta correta é 1000.');
+    alert('Resposta incorreta. Tente novamente!');
   }
 }
 
@@ -138,7 +149,6 @@ function choverCoracoes() {
     coracoes.forEach(c=>{
       ctx.beginPath();
       ctx.fillStyle = c.color;
-      ctx.moveTo(c.x,c.y);
       ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
       ctx.fill();
       c.y += 2;
@@ -148,5 +158,7 @@ function choverCoracoes() {
   }
   draw();
 }
-</script></body>
+</script>
+
+</body>
 </html>
