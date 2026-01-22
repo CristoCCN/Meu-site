@@ -28,7 +28,7 @@
       margin: 10px;
       font-size: 16px;
     }
-    #confetti {
+    #efeito {
       position: fixed;
       top: 0;
       left: 0;
@@ -53,7 +53,7 @@
   <button onclick="verificarNome()">Enviar</button>
 </section><section id="celebracao" style="display:none;">
   <h2 id="mensagem"></h2>
-  <canvas id="confetti"></canvas>
+  <canvas id="efeito"></canvas>
   <div id="respostaSec" style="display:none;">
     <p>De 0 a?</p>
     <input type="text" id="resposta" placeholder="Digite o número" />
@@ -83,34 +83,32 @@ function verificarNome() {
 
 function mostrarCelebracao() {
   document.getElementById('mensagem').innerText = 'Bem-vindo ao meu canto!';
-  soltarConfete();
+  soltarBaloes();
   setTimeout(() => {
     document.getElementById('respostaSec').style.display = 'block';
   }, 2000);
 }
 
-function soltarConfete() {
-  const canvas = document.getElementById('confetti');
+function soltarBaloes() {
+  const canvas = document.getElementById('efeito');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const confetes = [];
-  for(let i=0; i<100; i++) {
-    confetes.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*6+2, d: Math.random()*100 });
+  const baloes = [];
+  for(let i=0; i<50; i++) {
+    baloes.push({ x: Math.random()*canvas.width, y: canvas.height + Math.random()*200, r: Math.random()*20+10, color: `hsl(${Math.random()*360},100%,50%)` });
   }
 
   function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = 'rgba(255,0,0,0.7)';
-    confetes.forEach(c => {
+    baloes.forEach(b => {
       ctx.beginPath();
-      ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+      ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fillStyle = b.color;
       ctx.fill();
-      c.y += Math.cos(c.d) + 1 + c.r/2;
-      c.x += Math.sin(c.d);
-      if(c.y > canvas.height) c.y = 0;
-      if(c.x > canvas.width) c.x = 0;
+      b.y -= 2;
+      if(b.y + b.r < 0) b.y = canvas.height + b.r;
     });
     requestAnimationFrame(draw);
   }
@@ -118,8 +116,37 @@ function soltarConfete() {
 }
 
 function enviarResposta() {
-  const resposta = document.getElementById('resposta').value;
-  alert('Você respondeu: ' + resposta + '\nTe amo ❤️');
+  const resposta = document.getElementById('resposta').value.trim();
+  if(resposta === '1000') {
+    choverCoracoes();
+    alert('Resposta correta! Te amo ❤️');
+  } else {
+    alert('Resposta incorreta. A resposta correta é 1000.');
+  }
+}
+
+function choverCoracoes() {
+  const canvas = document.getElementById('efeito');
+  const ctx = canvas.getContext('2d');
+  const coracoes = [];
+  for(let i=0;i<100;i++) {
+    coracoes.push({x: Math.random()*canvas.width,y: -Math.random()*canvas.height,r: Math.random()*10+5,color:`hsl(${Math.random()*360},100%,70%)`});
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    coracoes.forEach(c=>{
+      ctx.beginPath();
+      ctx.fillStyle = c.color;
+      ctx.moveTo(c.x,c.y);
+      ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+      ctx.fill();
+      c.y += 2;
+      if(c.y - c.r > canvas.height) c.y = -c.r;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
 }
 </script></body>
 </html>
