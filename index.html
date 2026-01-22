@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meu Site Interativo</title>
   <style>
+    /* Assinatura: CCN */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -38,6 +39,18 @@
       pointer-events: none;
       z-index: 9999;
     }
+
+    /* Assinatura visual discreta */
+    #assinatura {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: rgba(0,0,0,0.3);
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 10000;
+    }
   </style>
 </head>
 <body>
@@ -70,7 +83,11 @@
   </div>
 </section>
 
+<!-- Assinatura visual -->
+<div id="assinatura">CCN</div>
+
 <script>
+  // Assinatura: CCN
 function verificarIdade() {
   const idade = parseInt(document.getElementById('idade').value);
   if(idade >= 18) {
