@@ -1,76 +1,125 @@
-<!DOCTYPE html>
-<html lang="pt">
+<!DOCTYPE html><html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Site</title>
+  <title>Meu Site Interativo</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f4f4;
       color: #333;
+      text-align: center;
     }
     header {
       background: #111;
       color: #fff;
       padding: 20px;
-      text-align: center;
     }
     section {
       max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-      background: #fff;
-    }
-    h1, h2 {
-      margin-bottom: 10px;
-    }
-    p {
-      line-height: 1.6;
-    }
-    .cta {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: #007bff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    footer {
-      text-align: center;
+      margin: 40px auto;
       padding: 20px;
-      background: #111;
-      color: #fff;
+      background: #fff;
+      border-radius: 10px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
     }
   </style>
 </head>
-<body>
+<body><header>
+  <h1>Bem-vindo ao Meu Site Interativo</h1>
+</header><section id="entrada">
+  <h2>Verificação de Idade</h2>
+  <p>Por favor, digite sua idade:</p>
+  <input type="number" id="idade" placeholder="Idade" />
+  <button onclick="verificarIdade()">Enviar</button>
+</section><section id="nomeSec" style="display:none;">
+  <h2>Verificação de Nome</h2>
+  <p>Digite seu nome:</p>
+  <input type="text" id="nome" placeholder="Nome" />
+  <button onclick="verificarNome()">Enviar</button>
+</section><section id="celebracao" style="display:none;">
+  <h2 id="mensagem"></h2>
+  <canvas id="confetti"></canvas>
+  <div id="respostaSec" style="display:none;">
+    <p>De 0 a?</p>
+    <input type="text" id="resposta" placeholder="Digite o número" />
+    <button onclick="enviarResposta()">Enviar</button>
+  </div>
+</section><script>
+function verificarIdade() {
+  const idade = parseInt(document.getElementById('idade').value);
+  if(idade >= 18) {
+    document.getElementById('entrada').style.display = 'none';
+    document.getElementById('nomeSec').style.display = 'block';
+  } else {
+    alert('Desculpe, você precisa ter 18 anos ou mais.');
+  }
+}
 
-  <header>
-    <h1>Bem-vindo ao Meu Site</h1>
-    <p>Presença simples, clara e profissional na internet</p>
-  </header>
+function verificarNome() {
+  const nome = document.getElementById('nome').value.trim();
+  if(nome.toLowerCase() === 'muslim') {
+    document.getElementById('nomeSec').style.display = 'none';
+    document.getElementById('celebracao').style.display = 'block';
+    mostrarCelebracao();
+  } else {
+    alert('Nome incorreto. Apenas "Muslim" é aceito.');
+  }
+}
 
-  <section>
-    <h2>Sobre</h2>
-    <p>
-      Este site foi criado para apresentar ideias, serviços ou projetos de forma direta e elegante.
-      Ele funciona bem em celular e computador, carrega rápido e pode crescer com o tempo.
-    </p>
+function mostrarCelebracao() {
+  document.getElementById('mensagem').innerText = 'Bem-vindo ao meu canto!';
+  soltarConfete();
+  setTimeout(() => {
+    document.getElementById('respostaSec').style.display = 'block';
+  }, 2000);
+}
 
-    <h2>O que eu faço</h2>
-    <p>
-      Aqui você pode descrever seu trabalho, negócio, portfólio ou qualquer atividade que queira divulgar.
-    </p>
+function soltarConfete() {
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    <a href="#" class="cta">Entrar em contacto</a>
-  </section>
+  const confetes = [];
+  for(let i=0; i<100; i++) {
+    confetes.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*6+2, d: Math.random()*100 });
+  }
 
-  <footer>
-    <p>© 2028 - Meu Site</p>
-  </footer>
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = 'rgba(255,0,0,0.7)';
+    confetes.forEach(c => {
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+      ctx.fill();
+      c.y += Math.cos(c.d) + 1 + c.r/2;
+      c.x += Math.sin(c.d);
+      if(c.y > canvas.height) c.y = 0;
+      if(c.x > canvas.width) c.x = 0;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
 
-</body>
+function enviarResposta() {
+  const resposta = document.getElementById('resposta').value;
+  alert('Você respondeu: ' + resposta + '\nTe amo ❤️');
+}
+</script></body>
 </html>
