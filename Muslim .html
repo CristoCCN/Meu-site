@@ -1,0 +1,198 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Para Você ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background: radial-gradient(
+    circle at top,
+    #ffffff 0%,
+    #f1f3f6 40%,
+    #e6e9ef 100%
+  );
+  color: #2c2c2c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+input {
+  width: 100%;
+  max-width: 320px;
+  background: #ffffff;
+  color: #333;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+input:focus {
+  box-shadow: 0 0 0 3px rgba(100, 120, 255, 0.25);
+}
+
+button {
+  cursor: pointer;
+  background: linear-gradient(135deg, #6a7cff, #4f5eff);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(79, 94, 255, 0.35);
+}
+
+.container {
+  margin-top: 80px;
+  text-align: center;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+#main {
+  max-width: 800px;
+  padding: 40px 20px;
+}
+
+#main h1 {
+  font-size: 2.5rem;
+}
+
+#main p {
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+/* ===== GALERIA ===== */
+.gallery {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.gallery img {
+  width: 260px;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== CORAÇÕES ===== */
+.heart {
+  position: fixed;
+  bottom: -30px;
+  font-size: 26px;
+  animation: float 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.4);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="step1">
+  <h2>Digite seu nome ❤️</h2>
+  <input id="nameInput" placeholder="Seu nome">
+  <br><br>
+  <button onclick="checkName()">Entrar</button>
+</div>
+
+<div class="container hidden" id="step2">
+  <h2>De 0 a... ???</h2>
+  <input id="answerInput" placeholder="Resposta">
+  <br><br>
+  <button onclick="checkAnswer()">Confirmar</button>
+</div>
+
+<div class="hidden" id="main">
+  <h1>Eu te amo ❤️</h1>
+  <p>
+    Sabe… eu passo o dia todo pensando em ti 🫶🏽
+Eu sei que talvez não seja suposto, mas simplesmente não consigo evitar.
+O facto de estarmos distantes um do outro é a pior parte, porque a minha cabeça acaba pensando em muita coisa 😔
+Nem sempre conseguimos ter conversas realmente produtivas, e às vezes eu nem sei o que dizer. Chega um momento em que eu quero falar tudo o que sinto, mas acabo limitado pela situação…
+Sei às vezes pareço insistente, não é por pressão, é porque eu realmente quero tentar 🥺
+Eu te amo, shet… ❤️
+Decidi fazer algo. Não sei se vais conseguir acessar, mas eu torço muito para que consigas, porque é algo feito só para ti -- apenas tu tens acesso 🤍
+Acho que tenho te perturbado muito ultimamente e, sinceramente, já não sei o que fazer…
+Mas, independentemente da situação ou de como vás reagir, nunca te esqueças disto: EU TE AMO ❤️.<br>
+    Mas o sentimento é um só.<br>
+    com muito amor CCN .
+  </p>
+
+  <div class="gallery">
+    <img src="start.jpg" alt="Us– 1">
+    <img src="Happy.jpg" alt="Us – 2">
+  </div>
+</div>
+
+<script>
+const correctName = "Shanaya";
+const correctAnswer = "1000";
+
+function checkName() {
+  const name = document.getElementById("nameInput").value.trim();
+  if (name === correctName) {
+    document.getElementById("step1").classList.add("hidden");
+    document.getElementById("step2").classList.remove("hidden");
+  } else {
+    alert("Nome incorreto💔");
+  }
+}
+
+function checkAnswer() {
+  const ans = document.getElementById("answerInput").value.trim();
+  if (ans === correctAnswer) {
+    document.getElementById("step2").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+    startHearts();
+  } else {
+    alert("Resposta incorreta💔😔 ");
+  }
+}
+
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 350);
+}
+</script>
+
+</body>
+</html>
